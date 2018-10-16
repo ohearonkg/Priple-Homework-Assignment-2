@@ -25,7 +25,6 @@ var server = http.createServer(function(req, res) {
   req.on("data", function(data) {
     buffer += decoder.write(data);
   });
-
   /**
    * When we are done with the request
    * we perform our desired sending of
@@ -55,8 +54,8 @@ var server = http.createServer(function(req, res) {
         if (!error) {
           res.end();
         } else {
-          res.writeHead(500);
-          res.end();
+          res.writeHead(error.status);
+          res.end(error.errorText);
         }
       });
     } else {

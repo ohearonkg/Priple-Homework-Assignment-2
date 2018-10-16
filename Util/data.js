@@ -3,11 +3,11 @@
  * with data via the file system
  */
 var fs = require("fs");
+var path = require("path");
+var helpers = require("./helpers");
 
 var data = {};
-// Base directory where our files will live
-// lib.baseDir = path.join(__dirname, "/../.data/");
-var baseDir = "Data/";
+var baseDir = path.join(__dirname, "/../.Data/");
 
 data._read = function(directory, fileName, callback) {
   fs.readFile(baseDir + directory + "/" + fileName + ".json", "utf-8", function(

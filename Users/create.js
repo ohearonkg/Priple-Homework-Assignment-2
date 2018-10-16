@@ -2,30 +2,35 @@
  * This file is responsible for handling
  * the creation of a user
  */
-var data = require("./Util/data");
+var data = require("../Util/data");
 
 user = {};
 
-user._create = function(firstName, lastName, email, address, callBack) {
+user._create = function(userObject, callBack) {
   /**
    * Validate all Fields
    */
   var firstName =
-    typeof firstName == "string" && firstName.trim().length > 0
-      ? firstName
+    typeof userObject.firstName == "string" &&
+    userObject.firstName.trim().length > 0
+      ? userObject.firstName
       : false;
   var lastName =
-    typeof lastName == "string" && lastName.trim().length > 0
-      ? lastName
+    typeof userObject.lastName == "string" &&
+    userObject.lastName.trim().length > 0
+      ? userObject.lastName
       : false;
   var email =
-    typeof email == "string" &&
-    email.trim().length > 0 &&
-    email.indexOf("@") !== -1
-      ? email
+    typeof userObject.email == "string" &&
+    userObject.email.trim().length > 0 &&
+    userObject.email.indexOf("@") !== -1
+      ? userObject.email
       : false;
   var address =
-    typeof address == "string" && address.trim().length > 0 ? address : false;
+    typeof userObject.address == "string" &&
+    userObject.address.trim().length > 0
+      ? userObject.address
+      : false;
 
   /**
    * Attempt to create the user
@@ -34,11 +39,11 @@ user._create = function(firstName, lastName, email, address, callBack) {
     /**
      * Attempt to read file for user
      */
-    data.read("UsersData", email, function(error, userData) {
+    data._read("UsersData", email, function(error, userData) {
       if (!error && userData) {
-        console.log("can read");
+        callBack({ status: 400, errorText: "User already exists!" });
       } else {
-        callBack(400, { Error: "User already exists" });
+        console.log("can create user");
       }
     });
   } else {
@@ -47,3 +52,5 @@ user._create = function(firstName, lastName, email, address, callBack) {
     });
   }
 };
+
+module.exports = user;

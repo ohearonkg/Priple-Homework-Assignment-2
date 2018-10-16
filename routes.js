@@ -3,10 +3,16 @@
  * for routing requests to
  * the appropriate handler
  */
+var user = require("./Users/create");
 
 var usersHandler = function(requestObject, callback) {
-  console.log("User handler with ", requestObject);
-  callback(false);
+  user._create(requestObject.body, function(error) {
+    if (!error) {
+      console.log("no error");
+    } else {
+      callback(error);
+    }
+  });
 };
 
 var routes = {
