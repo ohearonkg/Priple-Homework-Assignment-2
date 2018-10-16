@@ -25,6 +25,11 @@ var server = http.createServer(function(req, res) {
    * route / handler
    */
   if (routes[trimmedPath] !== undefined) {
+    /**
+     * Pass the created object off
+     * to its appropriate handler
+     */
+    routes[trimmedPath]({ a: "some Stuff" });
   } else {
     res.writeHead(404);
     res.end();
