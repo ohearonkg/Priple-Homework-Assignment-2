@@ -4,8 +4,9 @@
  * the appropriate handler
  */
 
-var usersHandler = function(requestObject) {
+var usersHandler = function(requestObject, callback) {
   console.log("User handler with ", requestObject);
+  callback(false);
 };
 
 var routes = {

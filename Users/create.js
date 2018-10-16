@@ -34,8 +34,9 @@ user._create = function(firstName, lastName, email, address, callBack) {
     /**
      * Attempt to read file for user
      */
-    _data.read("UsersData", email, function(error, userData) {
+    data.read("UsersData", email, function(error, userData) {
       if (!error && userData) {
+        console.log("can read");
       } else {
         callBack(400, { Error: "User already exists" });
       }
