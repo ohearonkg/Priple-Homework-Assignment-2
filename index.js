@@ -50,13 +50,9 @@ var server = http.createServer(function(req, res) {
        * Pass the created object off
        * to its appropriate handler
        */
-      routes[trimmedPath](requestObject, function(error) {
-        if (!error) {
-          res.end();
-        } else {
-          res.writeHead(error.status);
-          res.end(error.errorText);
-        }
+      routes[trimmedPath](requestObject, function(response) {
+        res.writeHead(response.status);
+        res.end(response.text);
       });
     } else {
       /**

@@ -37,13 +37,24 @@ user._create = function(userObject, callBack) {
    */
   if (firstName && lastName && email && address) {
     /**
-     * Attempt to read file for user
+     * Attempt to read file for user.
+     *
+     * No error indicates that the file can be read,
+     * and hence a file with the user already exists.
      */
     data._read("UsersData", email, function(error, userData) {
       if (!error && userData) {
-        callBack({ status: 400, errorText: "User already exists!" });
+        callBack({ status: 400, text: "User already exists!" });
       } else {
-        console.log("can create user");
+        data._write("UsersData", email, JSON.stringify(userObject), function(
+          error
+        ) {
+          if (!error) {
+            callBack(false);
+          } else {
+            callBack(error);
+          }
+        });
       }
     });
   } else {

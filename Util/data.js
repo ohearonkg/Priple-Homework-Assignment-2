@@ -23,4 +23,19 @@ data._read = function(directory, fileName, callback) {
   });
 };
 
+data._write = function(directory, fileName, dataObject, callback) {
+  fs.writeFile(
+    baseDir + directory + "/" + fileName + ".json",
+    dataObject,
+    "utf-8",
+    function(error) {
+      if (!error) {
+        callback(false);
+      } else {
+        callback({ statusCode: 500, text: "Error creating user" });
+      }
+    }
+  );
+};
+
 module.exports = data;
