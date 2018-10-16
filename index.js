@@ -31,11 +31,15 @@ var server = http.createServer(function(req, res) {
      */
     routes[trimmedPath]({ a: "some Stuff" });
   } else {
+    /**
+     * Should we have no appropriate route
+     * we return a 404
+     */
     res.writeHead(404);
     res.end();
   }
 });
 
-server.listen(3000, function(req, res) {
+server.listen(3000, function() {
   console.log("Listening on port 3000");
 });
