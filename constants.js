@@ -7,3 +7,5 @@ var constants = {};
 
 constants.allowedMethods = ["GET", "POST", "PUT", "DELETE"];
 constants.allowedRoutes = ["USERS", "TOKEN"];
+
+module.exports = constants;

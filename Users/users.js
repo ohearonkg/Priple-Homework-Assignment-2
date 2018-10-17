@@ -1,6 +1,6 @@
 /**
  * This file is responsible for handling
- * the creation of a user
+ * CRUD operations for a user
  */
 var data = require("../Util/data");
 
@@ -61,6 +61,35 @@ user._create = function(userObject, callBack) {
     callBack(400, {
       Error: "Missing or incorrect parameters for user creation"
     });
+  }
+};
+
+user._delete = function(userObject, callBack) {
+  /**
+   * Validate the parmeters
+   */
+  email =
+    typeof userObject.email == "string" &&
+    userObject.email.length > 0 &&
+    userObject.email.indexOf("@") !== -1
+      ? userObject.email
+      : false;
+
+  if (email) {
+    /**
+     * Attempt to look up the user
+     * within the user's collection
+     */
+    console.log(email);
+    data._read("UsersData", email, function(error, userData) {
+      if (!error && userData) {
+        console.log("found user with email ", email);
+      } else {
+        callBack({ status: 400, text: "User does not exist" });
+      }
+    });
+  } else {
+    callBack({ status: 400, text: "Invalid email format" });
   }
 };
 
