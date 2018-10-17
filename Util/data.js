@@ -38,4 +38,14 @@ data._write = function(directory, fileName, dataObject, callback) {
   );
 };
 
+data._delete = function(directory, fileName, callback) {
+  fs.unlink(baseDir + directory + "/" + fileName + ".json", function(error) {
+    if (!error) {
+      callback(false);
+    } else {
+      callback({ status: 500, text: "Error deleting user file" });
+    }
+  });
+};
+
 module.exports = data;

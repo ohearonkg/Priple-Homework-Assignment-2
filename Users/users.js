@@ -80,10 +80,15 @@ user._delete = function(userObject, callBack) {
      * Attempt to look up the user
      * within the user's collection
      */
-    console.log(email);
     data._read("UsersData", email, function(error, userData) {
       if (!error && userData) {
-        console.log("found user with email ", email);
+        data._delete("UsersData", email, function(error) {
+          if (!error) {
+            callBack({ status: 200, text: "Succesfully deleted user" });
+          } else {
+            callBack(error);
+          }
+        });
       } else {
         callBack({ status: 400, text: "User does not exist" });
       }
